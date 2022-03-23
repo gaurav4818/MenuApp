@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MenuApp.Models.ItemViewModel>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+    <div>
+        <h4>Book</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.user.username)
+            </dt>
+            <dd class="col-sm-10">
+                @foreach (var item in Model)
+                {
+                    @Html.DisplayFor(modelItem => item.user.username)
+                    break;
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.itemname.item)
+            </dt>
+            <dd class="col-sm-10">
+                @foreach (var item in Model)
+                {
+                    @Html.DisplayFor(modelItem => item.itemname.item)
+                    <br />
+                }
+            </dd>
+
+        </dl>
+    </div>
+    <div>
+     
+        <a asp-action="Index">Back to List</a>
+    </div>

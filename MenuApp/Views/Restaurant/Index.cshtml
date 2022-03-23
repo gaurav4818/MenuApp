@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MenuApp.Models.ItemViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.user.username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.itemname.item)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+ 
+    
+    <tr>
+         
+
+            <td>
+                 
+                @Html.DisplayFor(modelItem => item.user.username)
+            </td>
+           @*@ <td>
+                @Html.DisplayFor(modelItem => item.itemname.item)
+            </td>
+            *@<td>
+                @Html.DisplayFor(modelItem => item.count)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.user.userid">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.user.userid">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.user.userid" new { onclick = "return confirm('Are you sure you want to delete this?');" }>Delete</a>
+            </td>
+           
+        </tr>
+}
+    </tbody>
+</table>
