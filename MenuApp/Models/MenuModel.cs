@@ -11,6 +11,8 @@ namespace MenuApp.Models
     {
         public int Username { get; set; }
         public IList<SelectListItem> itemname { get; set; }
+        public List<int> itemids { get; set; }
+      
     
     }
 }

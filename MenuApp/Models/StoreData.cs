@@ -12,11 +12,14 @@ namespace MenuApp.Models
     {
         [Key]
         public int id { get; set; }
+        
         [ForeignKey("User")]
         public int uid { get; set; }
+        
         public User User { get; set; }
         [ForeignKey("Itemname")]
         public int Itemid { get; set; }
+        
         public Itemname Itemname { get; set; }
 
 

@@ -1,4 +1,5 @@
 using MenuApp.Models;
+using MenuApp.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,8 @@ namespace MenuApp
         {
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IMenuRepository, MenuRepository>();
+          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

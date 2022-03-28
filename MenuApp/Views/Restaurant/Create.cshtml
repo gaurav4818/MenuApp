@@ -1,11 +1,10 @@
-﻿@model  MenuApp.Models.MenuModel;
+﻿@model MenuApp.Models.MenuModel;
 @{
     ViewData["Title"] = "Create";
 }
 
 <h1>Create</h1>
 
-<h4>ItemCategory</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,21 +18,32 @@
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
+                @if (Model.Username!=0)
+                {
+                @foreach (SelectListItem item in Model.itemname)
+                {
+                @foreach (var i in Model.itemids)
+                {
+                @if (item.Value.ToString() == i.ToString())
+                {
+                    item.Selected = true;
+                }}}
+                }
                 @for (int i = 0; i < Model.itemname.Count; i++)
                 {
                     <input type="hidden" asp-for="@Model.itemname[i].Value" />
-                    <input asp-for="itemname[i].Selected"/>@Model.itemname[i].Text <br />
+                    <input asp-for="itemname[i].Selected" id="box" />@Model.itemname[i].Text <br />
 
                 }
-                <span asp-validation-for="itemname" class="text-danger"></span>
+                <span asp-validation-for="itemname" class="text-danger error"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" id="btnSubmit" />
             </div>
         </form>
     </div>
 </div>
-    
+
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
@@ -41,3 +51,18 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+@*
+<script type="text/javascript">
+    $(function () {
+        $("#btnSubmit").click(function () {
+            var checked_checkboxes = $("#box:checked");
+            if (checked_checkboxes.length == 0) {
+                $(".error").show();
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+  *@  

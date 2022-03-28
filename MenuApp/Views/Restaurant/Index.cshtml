@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MenuApp.Models.ItemViewModel>
+﻿@model IEnumerable<MenuApp.Models.StoreData>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,38 +13,42 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.user.username)
+                @Html.DisplayNameFor(model => model.User.username)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.itemname.item)
+                @Html.DisplayNameFor(model => model.Itemname.item)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
- 
-    
-    <tr>
-         
+        @{
 
-            <td>
-                 
-                @Html.DisplayFor(modelItem => item.user.username)
-            </td>
-           @*@ <td>
-                @Html.DisplayFor(modelItem => item.itemname.item)
-            </td>
-            *@<td>
-                @Html.DisplayFor(modelItem => item.count)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.user.userid">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.user.userid">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.user.userid" new { onclick = "return confirm('Are you sure you want to delete this?');" }>Delete</a>
-            </td>
-           
-        </tr>
-}
+            List<int> id = Model.GroupBy(x => x.User.userid).Select(x => x.Key).ToList();
+            int i = 0;
+        }
+        @foreach (var item in Model.GroupBy(x => x.User.username, (key, items) => new { username = key, Count = items.Count() }))
+        {
+
+            
+            <tr>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.username)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+
+                <td>
+                    <a asp-action="Create" asp-route-id="@id[i]">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@id[i]">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@id[i]" new { onclick="return confirm('Are you sure you want to delete this?');" }>Delete</a>
+                </td>
+
+            </tr>
+            i++;
+        }
     </tbody>
 </table>
